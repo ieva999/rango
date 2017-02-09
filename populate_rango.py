@@ -11,25 +11,25 @@ def populate():
 
     python_pages = [
         {"title": "Official Python Tutorial",
-         "url":"http://docs.python.org/2/tutorial/"},
+         "url":"http://docs.python.org/2/tutorial/", "views": 32},
         {"title": "How to Think like a Computer Scientist",
-         "url": "http://www.greenteapress.com/thinkpython/"},
+         "url": "http://www.greenteapress.com/thinkpython/", "views": 7},
         {"title": "Learn Python in 10 Minutes",
-         "url": "http://www.korokithakis.net/tutorials/python/"} ]
+         "url": "http://www.korokithakis.net/tutorials/python/", "views": 15} ]
 
     django_pages = [
         {"title": "Official Django Tutorial",
-         "url":"https://docs.djangoproject.com/en/1.9/intro/tutorial101/"},
+         "url":"https://docs.djangoproject.com/en/1.9/intro/tutorial101/", "views": 20},
         {"title": "Django Rocks",
-         "url": "http://www.djangorocks.com/"},
+         "url": "http://www.djangorocks.com/", "views": 40},
         {"title": "How to Tango with Django",
-         "url": "http://www.tangowithdjango.com/"} ]
+         "url": "http://www.tangowithdjango.com/", "views": 17} ]
 
     other_pages = [
         {"title": "Bottle",
-         "url":"http://bottlepy.org/docs/dev/"},
+         "url":"http://bottlepy.org/docs/dev/", "views": 4},
         {"title": "Flask",
-         "url": "http://flask.pocoo.org/"} ]
+         "url": "http://flask.pocoo.org/", "views": 8} ]
 
     cats = {"Python": {"pages": python_pages, "likes": 64, "views": 128},
             "Django": {"pages": django_pages, "likes": 32, "views": 64},
@@ -38,13 +38,13 @@ def populate():
     for cat, cat_data in cats.items():
         c = add_cat(cat, cat_data["likes"], cat_data["views"])
         for p in cat_data["pages"]:
-            add_page(c, p["title"], p["url"])
+            add_page(c, p["title"], p["url"], p["views"])
 
     for c in Category.objects.all():
         for p in Page.objects.filter(category=c):
             print("- {0} - {1}".format(str(c), str(p)))
 
-def add_page(cat, title, url, views=0):
+def add_page(cat, title, url, views):
     p = Page.objects.get_or_create(category=cat, title=title) [0]
     p.url=url
     p.views=views
